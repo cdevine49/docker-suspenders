@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  db:
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    image: postgres:12.2-alpine
+    volumes:
+      - datavolume:/var/lib/postgresql/data
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  datavolume:
